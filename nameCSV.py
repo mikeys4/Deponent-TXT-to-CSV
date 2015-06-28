@@ -5,6 +5,8 @@ and return a CSV list with the following headers:
 Case Name | Deponent Name | Date of Deposition
 """
 
+print "\n"
+
 def line_read(file):
 	# a method for reading each line in the file and returning a tuple of case name, :, deponent and date
 	sep_list = []
@@ -45,7 +47,11 @@ def date_separate(string_with_date):
 	else:
 		return "##/##/##"
 	# returns an "empty date" -- ##/##/## if no date is found (you can quickly check the CSV for missing dates this way)
-
+	
+def single_char_is_int(char):
+	# determines if a single character is a number
+	print char
+			
 def get_sep_list(file):	
 	sep_list = []
 	with(open(file)) as input:
@@ -54,7 +60,7 @@ def get_sep_list(file):
 			# sep_list is now a list of tuples with the following structure:
 			# (case name, ":", Name and date of deposition)
 	return sep_list
-	
+
 def write_row(file):
 	for line in get_sep_list(file):
 		(case_name, semicolon, name_depodate) = line
@@ -67,16 +73,20 @@ def write_row(file):
 			date = date_separate(name)
 			# get the date
 			name = name.split()
-			# list of all characters in name
+			# split "name" into a list of its characters
 			name_char_list = []
+			# name_char_list is the new list which we will write to
+
 			for char in name:
-				if char is not "/" and char.isdigit() == False and char is not "\n":
+				# why does this return names separated by spaces? Why not individual characters?
+				if any(letter.isdigit() for letter in char) == False:
 					name_char_list.append(char)
+					name_char_list.append(' ')
 			
 			# there are problems with this code, I'm not sure what.
 			'''
-			if name_char_list[0] == " ":
-				del name_char_list[0]
+			if name_char_list[1] == " ":
+				del name_char_list[1]
 			# remove the first char in the list (if a space)
 			'''
 			
@@ -87,5 +97,8 @@ def write_row(file):
 			
 			name = ''.join(name_char_list)
 			
+			print "\"" + case_name + "\", \"" + name + "\", \"" + date + "\"\n"
 			
-			print case_name + "," + name + "," + date + "\n"
+# test here			
+			
+print write_row("sample2.txt")
