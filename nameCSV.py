@@ -61,7 +61,8 @@ def get_sep_list(file):
 			# (case name, ":", Name and date of deposition)
 	return sep_list
 
-def write_row(file):
+def format_row(file):
+	output_list = []
 	for line in get_sep_list(file):
 		(case_name, semicolon, name_depodate) = line
 		# call get_sep_list on the file, and take each line from that file (a tuple)
@@ -97,8 +98,22 @@ def write_row(file):
 			
 			name = ''.join(name_char_list)
 			
-			print "\"" + case_name + "\", \"" + name + "\", \"" + date + "\"\n"
+			# you'll want to write to the CSV here.
+			line_export = "\"" + case_name + "\"," + name + ", " + date + "\n"
+			output_list.append(line_export)
+	return output_list
+	print output_list
+	
+def write_csv(input_list, output_csv):
+	with open(output_csv, "w") as file:
+		file.write("CASE NAME, DEPONENT NAME, DATE\n")
+		for i in input_list:
+			file.write(i)
+	file.close()
+	print "Completed writing to file!"
+		
 			
-# test here			
-			
-print write_row("sample2.txt")
+# test here		
+name_of_txt = raw_input("Name the TXT file to be read (exact filename, with extension please!): ")	
+name_of_csv = raw_input("Name the CSV file to be written (no need for an extension): ") + ".csv"
+write_csv(format_row(name_of_txt), name_of_csv)
