@@ -17,6 +17,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+# Ignore the CSV ouput
+*.csv
+
 # =========================
 # Operating System Files
 # =========================
