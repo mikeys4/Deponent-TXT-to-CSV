@@ -4,7 +4,9 @@ A simple string parser that converts a txt list of case names, depositions, and 
 This program takes a text file, formatted like so:
 
 Case Name vs. Example: Deponent Name MM/DD/YY, Deponent Name MM/DD/YY
+
   OR
+  
 Case Name vs. Example: Deponent Name M/D/YY
 
 And puts it into a CSV file with three columns, Case Name | Deponent Name | Date.
